@@ -3,8 +3,8 @@ import axios from 'axios';
 import './App.css';
 
 const API_URL =
-  import.meta.env?.VITE_API_URL ||
-  process.env.REACT_APP_API_URL ||
+  import.meta.env?.VITE_API_URL || 'http://localhost:5000/api';
+  
   'http://localhost:5000/api';
 
 const compressImageAndConvert = (file, callback) => {
@@ -950,7 +950,7 @@ export default function App() {
           {/* COMPACT MANAGE QR CHANNELS SECTION */}
           <div className="card full-width" style={{ marginTop: '20px' }}>
             <h3>Manage Official QR Deposit Channels</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '15px' }} className="grid-layout">
+            <div style={{ marginTop: '15px' }} className="grid-layout">
               <form onSubmit={handleAddPaymentMethod} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <input type="text" placeholder="Channel Name (e.g., GCash QR)" value={channelName} onChange={e => setChannelName(e.target.value)} required />
                 <div>
@@ -1077,7 +1077,7 @@ export default function App() {
             onClick={(e) => e.stopPropagation()}
             style={{ background: '#1e293b', padding: '20px', borderRadius: '10px', maxWidth: '500px', width: '100%', textAlign: 'center', border: '1px solid #334155' }}
           >
-            <h3 style={{ marginTop: 0, color: '#fff' }}>Official Payment QR Code</h3>
+            <h3 style={{ marginTop: 0, color: '#fff' }}>Image Preview</h3>
             <img 
               src={viewingProofImage} 
               alt="QR Preview" 

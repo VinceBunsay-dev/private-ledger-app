@@ -1,15 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   background-color: #0f172a;
   color: #f8fafc;
+  overflow-x: hidden;
 }
 
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 16px;
 }
 
 .auth-card, .card {
@@ -44,6 +50,7 @@ input {
   border-radius: 6px;
   color: #fff;
   box-sizing: border-box;
+  font-size: 16px; /* Prevents iOS auto-zoom on focus */
 }
 
 button {
@@ -92,15 +99,22 @@ button:hover { opacity: 0.9; }
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
   border-bottom: 1px solid #334155;
   padding-bottom: 20px;
   margin-bottom: 30px;
+}
+
+.top-bar h1 {
+  margin-bottom: 0;
 }
 
 .user-info {
   display: flex;
   align-items: center;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 .balance-card {
@@ -111,7 +125,7 @@ button:hover { opacity: 0.9; }
 }
 
 .balance-card h3 { margin: 0 0 10px 0; font-weight: normal; opacity: 0.9; }
-.balance-card h2 { margin: 0; font-size: 36px; }
+.balance-card h2 { margin: 0; font-size: 36px; word-break: break-word; }
 
 /* Grid layout using flex wrap to prevent card overlap */
 .grid-layout {
@@ -123,7 +137,7 @@ button:hover { opacity: 0.9; }
 
 .grid-layout .card {
   flex: 1 1 350px;
-  min-width: 300px;
+  min-width: 0;
 }
 
 .card { max-width: none; }
@@ -163,6 +177,8 @@ th { color: #94a3b8; }
   border-radius: 4px;
   font-size: 12px;
   text-transform: uppercase;
+  display: inline-block;
+  white-space: nowrap;
 }
 .badge.pending { background: #f59e0b; color: #000; }
 .badge.approved { background: #22c55e; color: #fff; }
@@ -193,13 +209,13 @@ th { color: #94a3b8; }
 .card .grid-layout {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 20px;
   margin-top: 15px;
 }
 
 .package-box {
-  flex: 1;
+  flex: 1 1 240px;
   background: #0f172a;
   border: 1px solid #334155;
   padding: 20px;
@@ -220,25 +236,87 @@ th { color: #94a3b8; }
 }
 
 .deposit-history-container {
-  max-height: 100px;
+  max-height: 220px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
 }
 
 /* Force action buttons to stay side-by-side without wrapping */
 td:has(button.btn-sm) {
   white-space: nowrap;
-  width: 150px;
 }
 
-/* Fix table overflow inside cards */
+/* Allow tables to breathe and scroll horizontally on small screens */
 .card table {
-  table-layout: fixed;
   width: 100%;
+  min-width: 480px;
 }
 
 .card th, .card td {
-  word-wrap: break-word;
-  overflow: hidden;
-  padding: 8px 6px;
+  padding: 8px 10px;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 16px 12px;
+  }
+
+  .top-bar {
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+  }
+
+  .top-bar h1 {
+    font-size: 1.4rem;
+  }
+
+  .user-info {
+    width: 100%;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+
+  .balance-card {
+    padding: 18px;
+    margin-bottom: 20px;
+  }
+
+  .balance-card h2 {
+    font-size: 28px;
+  }
+
+  .card, .auth-card {
+    padding: 16px;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+  }
+
+  .grid-layout {
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .grid-layout .card {
+    flex: 1 1 100%;
+  }
+
+  .card .grid-layout {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .package-box {
+    flex: 1 1 100%;
+    padding: 16px;
+  }
+
+  th, td, .card th, .card td {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
 }
