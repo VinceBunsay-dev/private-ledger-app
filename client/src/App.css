@@ -2,12 +2,14 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   background-color: #0f172a;
   color: #f8fafc;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 .auth-container {
@@ -26,6 +28,7 @@ body {
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
   width: 100%;
   max-width: 400px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,6 +46,7 @@ body {
 
 input {
   width: 100%;
+  max-width: 100%;
   padding: 12px;
   margin-bottom: 15px;
   background: #0f172a;
@@ -55,6 +59,7 @@ input {
 
 button {
   width: 100%;
+  max-width: 100%;
   padding: 12px;
   border: none;
   border-radius: 6px;
@@ -87,12 +92,15 @@ button:hover { opacity: 0.9; }
   border-radius: 6px;
   margin-bottom: 15px;
   font-size: 14px;
+  overflow-wrap: anywhere;
 }
 
 .dashboard-container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 30px 20px;
+  overflow-x: clip;
 }
 
 .top-bar {
@@ -104,10 +112,12 @@ button:hover { opacity: 0.9; }
   border-bottom: 1px solid #334155;
   padding-bottom: 20px;
   margin-bottom: 30px;
+  max-width: 100%;
 }
 
 .top-bar h1 {
   margin-bottom: 0;
+  overflow-wrap: anywhere;
 }
 
 .user-info {
@@ -115,6 +125,7 @@ button:hover { opacity: 0.9; }
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .balance-card {
@@ -122,10 +133,22 @@ button:hover { opacity: 0.9; }
   padding: 25px;
   border-radius: 12px;
   margin-bottom: 30px;
+  max-width: 100%;
+  min-width: 0;
 }
 
-.balance-card h3 { margin: 0 0 10px 0; font-weight: normal; opacity: 0.9; }
-.balance-card h2 { margin: 0; font-size: 36px; word-break: break-word; }
+.balance-card h3 {
+  margin: 0 0 10px 0;
+  font-weight: normal;
+  opacity: 0.9;
+  overflow-wrap: anywhere;
+}
+
+.balance-card h2 {
+  margin: 0;
+  font-size: 36px;
+  overflow-wrap: anywhere;
+}
 
 /* Grid layout using flex wrap to prevent card overlap */
 .grid-layout {
@@ -133,21 +156,35 @@ button:hover { opacity: 0.9; }
   flex-wrap: wrap;
   gap: 24px;
   margin-bottom: 24px;
-}
-
-.grid-layout .card {
-  flex: 1 1 350px;
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
 }
 
-.card { max-width: none; }
-.full-width { grid-column: 1 / -1; width: 100%; flex: 1 1 100%; }
+.grid-layout .card {
+  flex: 1 1 320px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.card {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 100%;
+  flex: 1 1 100%;
+}
 
 .card h3 {
   margin-top: 0;
   margin-bottom: 12px;
   font-size: 1.25rem;
   color: #f1f5f9;
+  overflow-wrap: anywhere;
 }
 
 .card p.muted {
@@ -155,6 +192,7 @@ button:hover { opacity: 0.9; }
   font-size: 0.95rem;
   margin-bottom: 20px;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 table {
@@ -168,6 +206,7 @@ th, td {
   text-align: left;
   border-bottom: 1px solid #334155;
   font-size: 14px;
+  overflow-wrap: anywhere;
 }
 
 th { color: #94a3b8; }
@@ -188,6 +227,8 @@ th { color: #94a3b8; }
   border-top: 2px dashed #334155;
   padding-top: 30px;
   margin-top: 40px;
+  max-width: 100%;
+  min-width: 0;
 }
 
 /* Consolidated action buttons styling for clean side-by-side alignment */
@@ -216,6 +257,8 @@ th { color: #94a3b8; }
 
 .package-box {
   flex: 1 1 240px;
+  min-width: 0;
+  max-width: 100%;
   background: #0f172a;
   border: 1px solid #334155;
   padding: 20px;
@@ -233,6 +276,7 @@ th { color: #94a3b8; }
   margin: 10px 0 0 0;
   font-size: 14px;
   color: #38bdf8;
+  overflow-wrap: anywhere;
 }
 
 .deposit-history-container {
@@ -241,6 +285,7 @@ th { color: #94a3b8; }
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   width: 100%;
+  max-width: 100%;
 }
 
 /* Force action buttons to stay side-by-side without wrapping */
@@ -251,7 +296,7 @@ td:has(button.btn-sm) {
 /* Allow tables to breathe and scroll horizontally on small screens */
 .card table {
   width: 100%;
-  min-width: 480px;
+  min-width: 420px;
 }
 
 .card th, .card td {
@@ -313,6 +358,10 @@ td:has(button.btn-sm) {
   .package-box {
     flex: 1 1 100%;
     padding: 16px;
+  }
+
+  .card table {
+    min-width: 340px;
   }
 
   th, td, .card th, .card td {
